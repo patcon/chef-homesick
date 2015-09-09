@@ -66,7 +66,11 @@ def home_dir
 end
 
 def run(command)
-  env = { 'USER' => new_resource.user, 'HOME' => home_dir.to_s }
+  env = {
+    'PATH' => "/opt/chef/embedded/bin:#{ENV['PATH']}",
+    'USER' => new_resource.user,
+    'HOME' => home_dir.to_s
+  }
 
   execute command do
     user          new_resource.user
